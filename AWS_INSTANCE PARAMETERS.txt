@@ -1,0 +1,27 @@
+resource "aws_instance" "pub_instance" {
+  ami                                             = "ami-052cef05d01020f1d"
+  instance_type                                   = "t2.micro"
+  availability_zone                               = "ap-south-1a"
+  associate_public_ip_address                     = "true"
+  vpc_security_group_ids                          = [aws_security_group.pubsg.id]
+  subnet_id                                       = aws_subnet.pubsub.id 
+  key_name                                        = "GIT_KEY"
+  
+    tags = {
+    Name = "HDFCBANK WEBSERVER"
+  }
+}
+
+resource "aws_instance" "pri_instance" {
+  ami                                             = "ami-052cef05d01020f1d"
+  instance_type                                   = "t2.micro"
+  availability_zone                               = "ap-south-1b"
+  associate_public_ip_address                     = "false"
+  vpc_security_group_ids                          = [aws_security_group.prisg.id]
+  subnet_id                                       = aws_subnet.prisub.id 
+  key_name                                        = "GIT_KEY"
+  
+    tags = {
+    Name = "HDFCBANK APPSERVER"
+  }
+}
